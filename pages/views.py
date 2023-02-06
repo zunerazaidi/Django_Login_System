@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-def TeamMemberList(request):
+def team_member_list(request):
     #return HttpResponse("Hello, I am zunera")
-    return render(request, 'TeamMemberList.html', {})
+    return render(request, 'team_member_list.html', {})
 
 #def AddTeamMember(request):
  #   return render(request, 'AddTeamMember.html', {})
