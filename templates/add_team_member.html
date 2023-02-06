@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} List of Team Members {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Add a Team Member</h1>
+    <p>Enter Information</p>
+    <hr style="width:100%;text-align:left;margin-left:0">
+</div>
+<div class="container">
+    <h3>Information</h3>
+    <form class="row g-3">
+        <div class="col-auto">
+            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+        </div>
+        <div class="col-auto">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="col-auto">
+            <input type="tel" class="form-control" placeholder="999-999-9999">
+        </div>
+    </form>
+    <hr style="width:100%;text-align:left;margin-left:0">
+    <h3>Role</h3>
+    <form class="row g-3">
+        <div class="col-auto">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" checked>
+                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                    Regular - Can't delete members
+                </label>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" disabled>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Admin - Can delete members
+                </label>
+            </div>
+        </div>
+    </form>
+    <div class="float-md-left">
+        <a style="text-decoration: none" href="{% url 'team_member_list' %}">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

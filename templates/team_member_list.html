@@ -3,6 +3,20 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-Hello WOrld
+<div class="container">
+    <div class="float-md-right">
+        <div class="fa-3x">
+            <a style="text-decoration: none" href="{% url 'add_team_member' %}">
+                    <i class="fa-light fa-plus "></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h1>Team Members</h1>
+    <p>You have 3 Team Members</p>
+    <hr style="width:100%;text-align:left;margin-left:0">
+</div>
+
 {% endblock %}
 
