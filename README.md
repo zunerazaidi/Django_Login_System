@@ -55,3 +55,22 @@ Step 10: Download basic admin theme, url is: https://medium.com/djangotube/tomdj
 Step 11: After following all steps mentioned on the theme website, i realized there were some errors related to static folder so i came to the solution that the static folder is outdated and the latest one is staticfiles, as i am using latest version of django so i need to set up latest folder. I followed some basic steps which was mentioned in django website and after that all errors were gone.
 
 Step 12: Created public repository on GitHub and commit, push all changes to github.
+
+Step 13: Adding HTML code for 3 pages: List of Team Members, Add Team Member, Edit/Delete Team member
+
+Step: Create login page
+
+Created SuperUser from following commands:
+python manage.py createsuperuser
+Username: admin
+email: admin@instawork.com
+password: 12345
+
+python manage.py runserver
+http://127.0.0.1:8000/admin/
+login with registered user
+
+Creation of Database Table using models.py
+python manage.py migrate
+python manage.py makemigrations pages
+python manage.py sqlmigrate pages
