@@ -10,9 +10,7 @@
         <div class="card-body p-0">
             <div class="float-md-right">
                 <div class="fa-3x">
-                    <a style="text-decoration: none" href="{% url 'add_team_member' %}">
                         <i class="fa-light fa-plus "></i>
-                    </a>
                 </div>
             </div>
             <h1 style="color:black">Team Members</h1>
@@ -28,10 +26,12 @@
                         </div>
                     </div>
                     <div class='col'>
-                        <a href="{% url 'edit_team_member' %}">
-                            <h4 style="color:black">{{ member.fname }} {{ member.lname }} ({{ member.role }})</h4>
-                        </a>
+                            <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
+                        {% if member.telephone %}
                         <p>{{ member.telephone }}</p>
+                        {% else %}
+                        <p>No Phone number specified</p>
+                        {% endif %}
                         <p>{{ member.email }}</p>
                     </div>
                 </div>

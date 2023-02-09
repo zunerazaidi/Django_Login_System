@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('login', auth_views.LoginView.as_view(next_page=""), name='login'),
+    path('login', auth_views.LoginView.as_view(next_page="/"), name='login'),
     path('', views.team_member_list, name='team_member_list'),
 
     # path('member/add', auth_views.LoginView.as_view()),
