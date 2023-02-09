@@ -3,19 +3,18 @@
 {% block title %} Team Member List {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="float-md-right">
-        <div class="fa-3x">
-            <a style="text-decoration: none" href="{% url 'add_team_member' %}">
-                    <i class="fa-light fa-plus "></i>
-            </a>
-        </div>
-    </div>
-</div>
 
 
-<div class="container">
+<div class="container py-5 h-100">
+    <div class="w-75 p-3">
         <div class="card-body p-0">
+            <div class="float-md-right">
+                <div class="fa-3x">
+                    <a style="text-decoration: none" href="{% url 'add_team_member' %}">
+                        <i class="fa-light fa-plus "></i>
+                    </a>
+                </div>
+            </div>
             <h1 style="color:black">Team Members</h1>
             <p>You have {{ member_count }} Team Members</p>
             <hr>
@@ -41,6 +40,7 @@
             {% endfor %}
             <!-- dynamic -->
         </div>
+    </div>
 </div>
 
 
