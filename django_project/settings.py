@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'pages.apps.PagesConfig',
-    'phone_field'
+    'phone_field',
 ]
 
 AUTH_USER_MODEL = 'pages.MyUser'

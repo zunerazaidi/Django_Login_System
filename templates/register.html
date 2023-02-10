@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 h-100">
+    <div class="w-75 p-3">
+        <div class="card-body p-0">
+            <h1 style="color:black">Adding Team Member</h1>
+            <div class='col-md-8'>
+                <div class='row g-3'>
+                    <div class='col'>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <label style="color:black">{{ field.label_tag }}</label><br>
+                                {{ field }}
+                                {% if field.help_text %}
+                                <small style="color: grey">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                            </p>
+                            {% endfor %}
+                            <a style="text-decoration: none" href="{% url 'team_member_list' %}">
+                                <input class="btn btn-primary btn-lg btn-block" type="submit" value="submit">
+                                <input type="hidden" name="next" value="{{ next }}">
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

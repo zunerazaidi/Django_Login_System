@@ -39,6 +39,13 @@
             <hr>
             {% endfor %}
             <!-- dynamic -->
+            {% if user.is_authenticated %}
+            <div class="float-md-right">
+                <a style="text-decoration: none" href="{% url 'logout' %}">
+                    <button class="btn btn-primary">Logout</button>
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

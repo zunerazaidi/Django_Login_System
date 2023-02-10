@@ -1,9 +1,10 @@
-from django.db import models
 from django.contrib.auth.models import (
-     AbstractBaseUser
+    AbstractBaseUser
 )
-from pages.manager import MyUserManager
+from django.db import models
 from phone_field import PhoneField
+
+from pages.manager import MyUserManager
 
 
 class MyUser(AbstractBaseUser):
@@ -15,9 +16,9 @@ class MyUser(AbstractBaseUser):
         unique=True,
     )
     date_of_birth = models.DateField()
-    ROLE=(('user', "Regular - Can't delete members"), ('admin', "Admin - Can delete members"))
-    telephone = PhoneField(blank=True, help_text='Phone number')
-    role = models.CharField(max_length=20, choices=ROLE, default='user')
+    ROLE=(('User', "Regular - Can't delete members"), ('Admin', "Admin - Can delete members"))
+    telephone = PhoneField(blank=True)
+    role = models.CharField(max_length=20, choices=ROLE, default='user', )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
