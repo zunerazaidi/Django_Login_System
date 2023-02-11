@@ -18,7 +18,7 @@ class MyUser(AbstractBaseUser):
     date_of_birth = models.DateField()
     ROLE=(('User', "Regular - Can't delete members"), ('Admin', "Admin - Can delete members"))
     telephone = PhoneField(blank=True)
-    role = models.CharField(max_length=20, choices=ROLE, default='user', )
+    role = models.CharField(max_length=20, choices=ROLE, default='User', )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

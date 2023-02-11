@@ -1,9 +1,9 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-
 from .forms import CustomUserCreationForm
 from .models import MyUser
+from django.shortcuts import redirect, render, reverse
 
 
 def team_member_list(request):
@@ -21,11 +21,29 @@ def add_team_member(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
-    # return render(request, 'add_team_member.html', {})
+
 
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect("logout")
 
-def edit_team_member(request):
-    return render(request, 'edit_team_member.html', {})
+
+@login_required
+def edit(request, id):
+    myuser = MyUser.objects.get(id=id)
+    if request.method != 'POST':
+        form = CustomUserCreationForm(instance=myuser)
+    else:
+        form = CustomUserCreationForm(request.POST, request.FILES, instance=myuser)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'myuser': myuser, 'form': form}
+    return render(request, 'edit_team_member.html', context)
+
+
+@login_required
+def delete(request, id):
+    MyUser.objects.filter(id=id).delete()
+    return redirect('/')

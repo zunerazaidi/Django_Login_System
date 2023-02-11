@@ -28,7 +28,9 @@
                         </div>
                     </div>
                     <div class='col'>
-                            <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
+                            <a href="{% url 'edit' member.id %}">
+                                <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
+                            </a>
                         {% if member.telephone %}
                         <p>{{ member.telephone }}</p>
                         {% else %}
