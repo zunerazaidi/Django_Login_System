@@ -1,6 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+
 from .forms import CustomUserCreationForm
 from .models import MyUser
 from django.shortcuts import redirect, render, reverse
@@ -13,15 +14,17 @@ def team_member_list(request):
 
 
 def add_team_member(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
+    if request.user.is_staff_admin:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        else:
+            form = CustomUserCreationForm()
+        return render(request, 'registration/register.html', {'form': form})
     else:
-        form = CustomUserCreationForm()
-    return render(request, 'register.html', {'form': form})
-
+        return redirect('/')
 
 def user_logout(request):
     logout(request)
@@ -30,17 +33,22 @@ def user_logout(request):
 
 @login_required
 def edit(request, id):
+    id = int(id)
     myuser = MyUser.objects.get(id=id)
-    if request.method != 'POST':
-        form = CustomUserCreationForm(instance=myuser)
+    if request.user.is_staff_admin or request.user.id == id:
+        if request.method != 'POST':
+            form = CustomUserCreationForm(instance=myuser)
+        else:
+            form = CustomUserCreationForm(request.POST, request.FILES, instance=myuser)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
     else:
-        form = CustomUserCreationForm(request.POST, request.FILES, instance=myuser)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-
+        return HttpResponse('Unauthorized', status=401)
+    if not request.user.is_staff_admin:
+        form.fields['role'].widget.attrs = {'class':'readonly'}
     context = {'myuser': myuser, 'form': form}
-    return render(request, 'edit_team_member.html', context)
+    return render(request, 'registration/edit.html', context)
 
 
 @login_required

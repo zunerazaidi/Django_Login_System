@@ -16,9 +16,9 @@ class MyUser(AbstractBaseUser):
         unique=True,
     )
     date_of_birth = models.DateField()
-    ROLE=(('User', "Regular - Can't delete members"), ('Admin', "Admin - Can delete members"))
+    ROLE=(('Regular', "Regular - Can't delete members"), ('Admin', "Admin - Can delete members"))
     telephone = PhoneField(blank=True)
-    role = models.CharField(max_length=20, choices=ROLE, default='User', )
+    role = models.CharField(max_length=20, choices=ROLE, default='Regular', )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -31,7 +31,7 @@ class MyUser(AbstractBaseUser):
         return self.email
 
     @property
-    def is_staff(self):
+    def is_staff_admin(self):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
-        return self.is_admin
+        return self.role == 'Admin'

@@ -9,11 +9,13 @@
     <div class="w-75 p-3">
         <div class="card-body p-0">
             <div class="float-md-right">
+                {%  if request.user.is_staff_admin %}
                 <div class="fa-3x">
-                    <a style="text-decoration: none" href="{% url 'register' %}">
-                        <i class="fa-light fa-plus "></i>
-                    </a>
+                        <a style="text-decoration: none" href="{% url 'register' %}">
+                            <i class="fa-light fa-plus "></i>
+                        </a>
                 </div>
+                {% endif %}
             </div>
             <h1 style="color:black">Team Members</h1>
             <p>You have {{ member_count }} Team Members</p>
@@ -28,9 +30,13 @@
                         </div>
                     </div>
                     <div class='col'>
-                            <a href="{% url 'edit' member.id %}">
-                                <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
-                            </a>
+                        {% if not request.user.is_staff_admin and member.id == request.user.id or request.user.is_staff_admin %}
+                        <a href="{% url 'edit' member.id %}">
+                            <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role}})</h4>
+                        </a>
+                        {% else %}
+                        <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
+                        {% endif %}
                         {% if member.telephone %}
                         <p>{{ member.telephone }}</p>
                         {% else %}
