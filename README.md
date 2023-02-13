@@ -15,11 +15,11 @@ python3 -V
 ```
 - Create Virtual Environment using 
 ```
-python3 -m venv <env_name>
+python3 -m venv djangoenv
 ```
 - Activated it by using:
 ```
-source <env_name>/bin/activate
+source djangoenv/bin/activate
 ```
 - For installation:
 ```

@@ -8,6 +8,11 @@
 # Icon must end with two \r
 Icon
 
+djangoenv
+.idea
+
+staticfiles
+pages/migrations/*.py
 
 # Thumbnails
 ._*

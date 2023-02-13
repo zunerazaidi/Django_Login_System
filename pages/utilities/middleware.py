@@ -9,9 +9,6 @@ class AuthRequiredMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
         redirect_url = '/login'
-        print(redirect_url)
-        print(request.path)
-        print(request.user.is_authenticated)
         if request.path == redirect_url:
             return self.get_response(request)
 
