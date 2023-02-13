@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container py-5 h-100">
-    <div class="w-75 p-3">
-        <div class="card-body p-0">
-            <h1 style="color:black">Adding Team Member</h1>
-            <div class='col-md-8'>
-                <div class='row g-3'>
-                    <div class='col'>
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-3-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-left">
+                        <div class="float-md-left">
+                            <div class="fa-1x">
+                                <a style="text-decoration: none, color:black" href="{% url 'team_member_list' %}">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                            </div>
+                        </div>
                         <form method="post">
+                            <div style="color:black">
+                                <h3 class="mb-3 text-center">Adding Team Member</h3>
+                            </div>
                             {% csrf_token %}
                             {% for field in form %}
-                                <label style="color:black">{{ field.label_tag }}</label><br>
+                            <div class="text-primary">
+                                <label>{{ field.label_tag }}</label><br>
+                                {% if field.field.widget.input_type == 'radio' %}
+                                <div style="color:black">
+                                    {{ field }}
+                                </div>
+                                {% else %}
                                 {{ field }}
-                                {% if field.help_text %}
-                                <small style="color: grey">{{ field.help_text }}</small>
                                 {% endif %}
-                                {% for error in field.errors %}
+                            </div>
+                            {% if field.help_text %}
+                            <small style="color: grey">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
                             <p style="color: red">{{ error }}</p>
                             {% endfor %}
                             </p>
@@ -30,5 +47,5 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

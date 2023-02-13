@@ -1,10 +1,9 @@
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+from django.contrib.auth import logout, authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse
 
 from .forms import CustomUserCreationForm
 from .models import MyUser
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect, render
 
 
 def team_member_list(request):
@@ -31,7 +30,6 @@ def user_logout(request):
     return HttpResponseRedirect("logout")
 
 
-@login_required
 def edit(request, id):
     id = int(id)
     myuser = MyUser.objects.get(id=id)
@@ -42,6 +40,11 @@ def edit(request, id):
             form = CustomUserCreationForm(request.POST, request.FILES, instance=myuser)
             if form.is_valid():
                 form.save()
+
+                # We do not want to log out the current user if they update their own information
+                if myuser.id == request.user.id:
+                    authenticate(username=myuser.email, password=myuser.password)
+                    login(request, myuser)
                 return redirect('/')
     else:
         return HttpResponse('Unauthorized', status=401)
@@ -51,7 +54,6 @@ def edit(request, id):
     return render(request, 'registration/edit.html', context)
 
 
-@login_required
 def delete(request, id):
     MyUser.objects.filter(id=id).delete()
     return redirect('/')
