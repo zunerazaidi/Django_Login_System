@@ -1,13 +1,13 @@
 # Full-stack-take-home-assignment
 
-How to set up Django in Ubuntu:
+## Space Setup
 
-Step 01: Clone Repository
+Clone Repository
 ```
   git clone https://github.com/zunerazaidi/Full-stack-take-home-assignment.git
 ```
 
-Step 02: Setup environment on Ubuntu:
+Setup environment on Ubuntu:
 
 - Check version of Python using
 ```

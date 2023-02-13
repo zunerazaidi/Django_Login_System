@@ -23,7 +23,8 @@ def add_team_member(request):
             form = CustomUserCreationForm()
         return render(request, 'registration/register.html', {'form': form})
     else:
-        return redirect('/')
+        return HttpResponse('Unauthorized', status=401)
+
 
 def user_logout(request):
     logout(request)
@@ -32,25 +33,25 @@ def user_logout(request):
 
 def edit(request, id):
     id = int(id)
-    myuser = MyUser.objects.get(id=id)
+    my_user = MyUser.objects.get(id=id)
     if request.user.is_staff_admin or request.user.id == id:
         if request.method != 'POST':
-            form = CustomUserCreationForm(instance=myuser)
+            form = CustomUserCreationForm(instance=my_user)
         else:
-            form = CustomUserCreationForm(request.POST, request.FILES, instance=myuser)
+            form = CustomUserCreationForm(request.POST, request.FILES, instance=my_user)
             if form.is_valid():
                 form.save()
 
                 # We do not want to log out the current user if they update their own information
-                if myuser.id == request.user.id:
-                    authenticate(username=myuser.email, password=myuser.password)
-                    login(request, myuser)
+                if my_user.id == request.user.id:
+                    authenticate(username=my_user.email, password=my_user.password)
+                    login(request, my_user)
                 return redirect('/')
     else:
         return HttpResponse('Unauthorized', status=401)
     if not request.user.is_staff_admin:
-        form.fields['role'].widget.attrs = {'class':'readonly'}
-    context = {'myuser': myuser, 'form': form}
+        form.fields['role'].widget.attrs = {'class': 'readonly'}
+    context = {'my_user': my_user, 'form': form}
     return render(request, 'registration/edit.html', context)
 
 
