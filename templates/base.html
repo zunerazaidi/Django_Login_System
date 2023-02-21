@@ -22,8 +22,21 @@
     <script src="https://kit.fontawesome.com/057a826da8.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-3-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-left">
 {% block content %}
 {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Bootstrap core JavaScript-->
 <script type="text/javascript" src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

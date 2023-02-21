@@ -1,40 +1,25 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-<section class="vh-100" style="background-color: #508bfc;">
-
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-left">
-                        {% if form.errors %}
-                        <p style="color: red">Your email and password didn't match. Please try again.</p>
-                        {% endif %}
-                        <form method="post" action="{% url 'login' %}">
-                            {% csrf_token %}
-                            <div class="text-primary">
-                                <h3 class="mb-3 text-center">Sign in</h3>
-                            </div>
-                            {% for field in form %}
-                            <div class="input-group">
-                                <div class="form-outline w-100">
-                                        <label class="form-label">{{ field.label_tag }}</label>
-                                        <input type="{{ field.field.widget.input_type }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-control form-control-lg" /><br>
-                                </div>
-                                {{ field.errors }}
-                            </div>
-                            {% endfor %}
-                            <hr class="my-4">
-                            <input class="btn btn-primary btn-lg btn-block" type="submit" value="login">
-                            <input type="hidden" name="next" value="{{ next }}">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+{% if form.errors %}
+<p style="color: red">Your email and password didn't match. Please try again.</p>
+{% endif %}
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="text-primary">
+        <h3 class="mb-3 text-center">Sign in</h3>
     </div>
-
-</section>
+    {% for field in form %}
+    <div class="input-group">
+        <div class="form-outline w-100">
+            <label class="form-label">{{ field.label_tag }}</label>
+            <input type="{{ field.field.widget.input_type }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}"
+                   class="form-control form-control-lg"/><br>
+        </div>
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <hr class="my-4">
+    <input class="btn btn-primary btn-lg btn-block" type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
 {% endblock %}

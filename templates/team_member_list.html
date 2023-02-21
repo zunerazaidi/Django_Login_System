@@ -1,69 +1,54 @@
 {% extends 'base.html' %}
-
 {% block title %} Team Member List {% endblock %}
-
 {% block content %}
-
-<section class="vh-100" style="background-color: #508bfc;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-7">
-                <div class="card shadow-3-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-left">
-                        <div class="float-md-right">
-                            {%  if request.user.is_staff_admin %}
-                            <div class="fa-3x">
-                                <a style="text-decoration: none" href="{% url 'register' %}">
-                                    <i class="fa-light fa-plus "></i>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div style="color:black">
-                            <h3 class="mb-3 text-center">Team Member List</h3>
-                        </div>
-                        <div class="text-primary">
-                            <p class="text-center">You have {{ member_count }} Team Members</p><br>
-                        </div>
-                        {% for member in all_members %}
-                        <div class='col-md-8'>
-                            <div class='row g-3'>
-                                <div class='col-xs-3 text-center'>
-                                    <div class="fa-2x">
-                                        <i class="far fa-user-circle"></i>
-                                    </div>
-                                </div>
-                                <div class='col'>
-                                    {% if not request.user.is_staff_admin and member.id == request.user.id or request.user.is_staff_admin %}
-                                    <a href="{% url 'edit' member.id %}">
-                                        <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role}})</h4>
-                                    </a>
-                                    {% else %}
-                                    <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
-                                    {% endif %}
-                                    {% if member.telephone %}
-                                    <p>{{ member.telephone }}</p>
-                                    {% else %}
-                                    <p>No Phone number specified</p>
-                                    {% endif %}
-                                    <p>{{ member.email }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        {% endfor %}
-                        {% if user.is_authenticated %}
-                        <div class="float-md-right">
-                            <a style="text-decoration: none" href="{% url 'logout' %}">
-                                <button class="btn btn-primary">Logout</button>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
+<div class="float-md-right">
+    {% if request.user.is_staff_admin %}
+    <div class="fa-3x">
+        <a style="text-decoration: none" href="{% url 'register' %}">
+            <i class="fa-light fa-plus "></i>
+        </a>
+    </div>
+    {% endif %}
+</div>
+<div style="color:black">
+    <h3 class="mb-3 text-center">Team Member List</h3>
+</div>
+<div class="text-primary">
+    <p class="text-center">You have {{ member_count }} Team Members</p><br>
+</div>
+{% for member in all_members %}
+<div class='col-md-8'>
+    <div class='row g-3'>
+        <div class='col-xs-3 text-center'>
+            <div class="fa-2x">
+                <i class="far fa-user-circle"></i>
             </div>
         </div>
+        <div class='col'>
+            {% if not request.user.is_staff_admin and member.id == request.user.id or request.user.is_staff_admin %}
+            <a href="{% url 'edit' member.id %}">
+                <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role}})</h4>
+            </a>
+            {% else %}
+            <h4 style="color:black">{{ member.first_name }} {{ member.last_name }} ({{ member.role }})</h4>
+            {% endif %}
+            {% if member.telephone %}
+            <p>{{ member.telephone }}</p>
+            {% else %}
+            <p>No Phone number specified</p>
+            {% endif %}
+            <p>{{ member.email }}</p>
+        </div>
     </div>
-</section>
+</div>
+<hr>
+{% endfor %}
+{% if user.is_authenticated %}
+<div class="float-md-right">
+    <a style="text-decoration: none" href="{% url 'logout' %}">
+        <button class="btn btn-primary">Logout</button>
+    </a>
+</div>
+{% endif %}
 {% endblock %}
 
