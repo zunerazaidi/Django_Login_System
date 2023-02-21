@@ -5,11 +5,13 @@
 .AppleDouble
 .LSOverride
 
+
 # Icon must end with two \r
 Icon
 
 djangoenv
 .idea
+*.iml
 
 staticfiles
 pages/migrations/*.py
